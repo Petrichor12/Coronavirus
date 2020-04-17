@@ -12,7 +12,7 @@ from app import app
 
 links = dbc.Row(children=[
             dbc.Col(dbc.NavLink('Maps', href='/',style={'color':'#fff'})),
-            dbc.Col(dbc.NavLink('Graphs', href='/timeline',style={'color':'#fff'})),
+            dbc.Col(dbc.NavLink('Graphs', href='/graphs',style={'color':'#fff'})),
 ],)
 
 navbar = dbc.Navbar(children=[
@@ -26,7 +26,7 @@ navbar = dbc.Navbar(children=[
 graph_layout = html.Div([
             dbc.Card([
                 dbc.CardBody([
-                    html.H2('Casos Brasil'),
+                    html.H2('Line graphs'),
                     html.Br(),
                     dbc.Row([
                         dbc.Col([html.Div(page_brasil)],md=8),
@@ -38,7 +38,7 @@ graph_layout = html.Div([
         html.Div([
             dbc.Card([
                 dbc.CardBody([
-                    html.H2('Casos por estado'),
+                    html.H2('Scatter plots'),
                     html.Br(),
                     dbc.Row([
                         dbc.Col([html.Div(page_estados)],md=8),
@@ -52,7 +52,7 @@ graph_layout = html.Div([
         html.Div([
             dbc.Card([
                 dbc.CardBody([
-                    html.H2('Casos por cidade'),
+                    html.H2('Area graphs'),
                     html.Br(),
                     dbc.Row([
                         dbc.Col([html.Div(page_cidades)],md=8),
@@ -66,20 +66,13 @@ graph_layout = html.Div([
 footer = dbc.Row([
     dbc.Col(
         [dcc.Markdown('''
-                ### Fonte de dados
-                Foram utilizados dados do repositorio:[https://wcota.me/covid19br](https://wcota.me/covid19br)
-                onde casos e óbitos confirmados por dia utilizam informação oficial do [Ministério da Saúde](https://covid.saude.gov.br/), 
-                dados no nível municipal vem do [Brasil.IO](https://brasil.io/dataset/covid19/caso) 
-                e dados mais recentes são reportados pela equipe do [@CoronavirusBrasil](https://twitter.com/CoronavirusBra1).
+                All data taken from https://www.worldometers.info/coronavirus/ 
                 ''')],
         md=8
         ),
     dbc.Col(
-        [dcc.Markdown('''
-            #### Sobre    
-            Feito por Lucas ferreira,[Linkedin](https://www.linkedin.com/in/lfcosta-1996/)   
-            Contato:covidbrasil.contato@gmail.com  
-            Código fonte:[Github](https://github.com/lucs123/covid-brasil)
+        [dcc.Markdown('''    
+            Produced by the Vat Boys
             ''')],
         width={'offset':1},
         )
@@ -103,7 +96,7 @@ app.layout = html.Div(children=[
 def update_content(url):
     if url == '/':
         return map_layout
-    elif url == '/timeline':
+    elif url == '/graphs':
         return graph_layout
 
 # add callback for toggling the collapse on small screens
