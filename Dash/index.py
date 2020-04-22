@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
-from brasil import page_brasil,card_brasil
+from line_plots import page_total,card_total,menu_line
 from estados import page_estados,card_estados,menu_estados
 from cidades import page_cidades,card_cidades,menu_cidades
 from mapa import map_layout
@@ -29,8 +29,8 @@ graph_layout = html.Div([
                     html.H2('Line graphs'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_brasil)],md=8),
-                        dbc.Col([html.Div(card_brasil)])
+                        dbc.Col([html.Div(page_total)],md=8),
+                        dbc.Col([html.Div(menu_line),html.Br(),html.Div(card_total)])
                     ]),
                 ])    
         ]),
