@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 from dash.dependencies import Input, Output
 from app import app
-from brasil import percentage
+from line_plots import percentage
 
 #Dadaset Cidades
 cities_time = pd.read_csv('https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-cities-time.csv')
