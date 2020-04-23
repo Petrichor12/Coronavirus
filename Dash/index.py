@@ -3,8 +3,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
-from line_plots import page_total,card_total,menu_line
-from estados import page_estados,card_estados,menu_estados
+from line_plots import page_line,card_line,menu_line
+from scatter_plots import page_scatter
 from cidades import page_cidades,card_cidades,menu_cidades
 from mapa import map_layout
 from app import app
@@ -29,8 +29,8 @@ graph_layout = html.Div([
                     html.H2('Line graphs'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_total)],md=8),
-                        dbc.Col([html.Div(menu_line),html.Br(),html.Div(card_total)])
+                        dbc.Col([html.Div(page_line)],md=8),
+                        dbc.Col([html.Div(menu_line),html.Br(),html.Div(card_line)])
                     ]),
                 ])    
         ]),
@@ -41,8 +41,7 @@ graph_layout = html.Div([
                     html.H2('Scatter plots'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_estados)],md=8),
-                        dbc.Col([html.Div(menu_estados),html.Br(),html.Div(card_estados)])
+                        dbc.Col([html.Div(page_scatter)],md=8)
 
                     ]),
                 ])    

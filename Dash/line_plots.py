@@ -1,8 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import datetime
-from datetime import date
+from datetime import date, timedelta
 import pandas as pd
 from dash.dependencies import Input, Output
 from app import app
@@ -37,10 +36,12 @@ countries = []
 for i in df_cases.columns.values:
     countries.append({'label':i,'value':i})
 
-card_total = dbc.Card(id='card_total') 
+#Add main card
+card_line = dbc.Card(id='card_line') 
 
-menu_line = dbc.Card([
-        dbc.CardHeader('Countries'),
+#Add dropdown card
+menu_line = dbc.Card([              
+        dbc.CardHeader('Country'),
         dbc.CardBody(
             dcc.Dropdown(
                 id='dropdown_countries',
@@ -50,25 +51,25 @@ menu_line = dbc.Card([
         )
     ]) 
 
-#Layout
-page_total = html.Div(children=[
+#Add graph card with tabs
+page_line = html.Div(children=[
 
-    dcc.Tabs(id='tabs_total',value='Total cases',children=[
+    dcc.Tabs(id='tabs_line',value='Total cases',children=[
         dcc.Tab(label='Total cases',value='Total cases'),
         dcc.Tab(label='Total deaths',value='Total deaths'),
         dcc.Tab(label='Daily cases',value='Daily cases')
     ]),
 
     dbc.Card(
-        dcc.Graph(id='graph_total')
+        dcc.Graph(id='graph_line')
     )
 ])
 
 @app.callback(
-    [Output('graph_total','figure'),
-    Output('card_total','children')],
+    [Output('graph_line','figure'),
+    Output('card_line','children')],
     [Input('dropdown_countries','value'),
-     Input('tabs_total','value')]
+     Input('tabs_line','value')]
 )
 def update_graph_brasil(country, tab):
     x = df_deaths.index
@@ -87,19 +88,24 @@ def update_graph_brasil(country, tab):
             }
     }
 
+    #Prepare datetimes in string format for accessing correct values in dfs
     today = date.today()
-    display_date = today.strftime('%d/%m/%y')
+    display_date = today.strftime('%b %d')
+    
+    index_date = df_cases.index[len(df_cases)-1]
+    vorgestern = df_cases.index[len(df_cases)-2]    
+    
     children = [dbc.CardHeader(
                     html.H5(['Data:'+display_date],
                         style={'color': '#666666'}            
                     )
                 ),
                 dbc.CardBody([
-                    html.H5([f'Total Cases:{df_cases.Total.iloc[-1]} {percentage(df_cases.Total.iloc[-1],df_cases.Total.iloc[-2])}'],
+                    html.H5([f'Total Cases:{df_cases.loc[index_date,country]} {percentage(df_cases.loc[index_date,country],df_cases.loc[vorgestern,country])}'],
                         style={'color': '#666666'}),
-                    html.H6([f'Total Deaths:{df_deaths.Total.iloc[-1]} {percentage(df_deaths.Total.iloc[-1],df_deaths.Total.iloc[-2])}'],
+                    html.H6([f'Total Deaths:{df_deaths.loc[index_date,country]} {percentage(df_deaths.loc[index_date,country],df_deaths.loc[vorgestern,country])}'],
                         style={'color': '#666666'}),
-                    html.H6([f'Daily cases:{df_daily_cases.Total.iloc[-1]} {percentage(df_daily_cases.Total.iloc[-1],df_daily_cases.Total.iloc[-2])}'],
+                    html.H6([f'Daily cases:{df_daily_cases.loc[index_date,country]} {percentage(df_daily_cases.loc[index_date,country],df_daily_cases.loc[vorgestern,country])}'],
                         style={'color': '#666666'})                        
                 ])
                 ]      
