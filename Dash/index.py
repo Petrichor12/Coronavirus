@@ -21,7 +21,7 @@ navbar = dbc.Navbar(children=[
     ]),
     dbc.NavbarToggler(id="navbar-toggler"),
     dbc.Collapse(links, id="navbar-collapse", navbar=True),
-], color="dark",dark = True,className='col-md-12')
+], color="dark", dark = True, className='col-md-12')
 
 graph_layout = html.Div([
             dbc.Card([
@@ -41,8 +41,7 @@ graph_layout = html.Div([
                     html.H2('Scatter plots'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_scatter)],md=8)
-
+                        dbc.Col([html.Div(page_scatter)],md=12)
                     ]),
                 ])    
             ])
