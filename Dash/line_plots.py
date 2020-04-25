@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from datetime import date, timedelta
+from datetime import date
 import pandas as pd
 from dash.dependencies import Input, Output
 from app import app
@@ -90,13 +90,13 @@ def update_graph_brasil(country, tab):
 
     #Prepare datetimes in string format for accessing correct values in dfs
     today = date.today()
-    display_date = today.strftime('%b %d')
+    display_date = today.strftime('%d/%m/%y')
     
     index_date = df_cases.index[len(df_cases)-1]
     vorgestern = df_cases.index[len(df_cases)-2]    
     
     children = [dbc.CardHeader(
-                    html.H5(['Data:'+display_date],
+                    html.H5(['Data: '+display_date],
                         style={'color': '#666666'}            
                     )
                 ),
