@@ -15,19 +15,19 @@ def percentage(today,yesterday):
         return ''        
 
 #Read in cases dataset
-df_cases = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/Stats/Cases.csv')
+df_cases = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/Stats/Cases.csv?token=AGBFZQOUXEBKFPC3XQSIJIK6UVVX6')
 df_cases = df_cases.set_index('Unnamed: 0')
 df_cases.index.names = ['Date']
 df_cases['Total'] = df_cases.sum(axis=1)
 
 #Read in deaths dataset
-df_deaths = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/Stats/Deaths.csv')
+df_deaths = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/Stats/Deaths.csv?token=AGBFZQKFZSP2KD74ATP7P2C6UVVYG')
 df_deaths = df_deaths.set_index('Unnamed: 0')
 df_deaths.index.names = ['Date']
 df_deaths['Total'] = df_deaths.sum(axis=1)
 
 #Read in cases dataset
-df_daily_cases = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/Stats/Daily cases.csv')
+df_daily_cases = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/Stats/Daily%20cases.csv?token=AGBFZQPHGGSA262CIYF2IIK6UVVYM')
 df_daily_cases = df_daily_cases.set_index('Unnamed: 0')
 df_daily_cases.index.names = ['Date']
 df_daily_cases['Total'] = df_daily_cases.sum(axis=1)
