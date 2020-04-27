@@ -10,16 +10,14 @@ from app import app
 #Read in cases dataset
 df = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/timeseries.csv')
 
-fig = px.area(df, x="Day0", y='Cases', color="Country", range_x=[20,'Day0'])
-fig.update_layout(title='Cases' +' by Country over Time')
-
 #Add graph card with tabs
 page_area = html.Div(children=[
 
     dcc.Tabs(id='tabs_area',value='Total cases',children=[
         dcc.Tab(label='Total cases',value='Total cases'),
         dcc.Tab(label='Total deaths',value='Total deaths'),
-        dcc.Tab(label='New cases last week',value='New cases last week')
+        dcc.Tab(label='New cases last week',value='New cases last week'),
+        dcc.Tab(label='New deaths last week',value='New deaths last week')
     ]),
 
     dbc.Card(
@@ -28,7 +26,7 @@ page_area = html.Div(children=[
 ])
 
 @app.callback(
-    [Output('graph_area','figure')],
+    Output('graph_area','figure'),
     [Input('tabs_area','value')]
 )
 def update_graph_brasil(tab):
@@ -39,9 +37,15 @@ def update_graph_brasil(tab):
         y = df['Deaths']
     elif tab == 'New cases last week':
         y = df['New Cases Last Week']
+    elif tab == 'New deaths last week':
+        y = df['New Deaths Last Week']
 
-    figure = px.area(x=x, y=y, color=df["Country"], range_x=[20,'Day0'])
-    figure.update_layout(title = tab +' by Country over Time')
+    figure = px.area(x=x, y=y, color=df["Country"])
+    figure.update_layout(
+        title = tab +' by country over time',
+        xaxis_title='Days since 1st Jan 2020',
+        yaxis_title=tab,
+        )
 
-    return dcc.Graph(figure = px.area(x=x, y=y, color=df["Country"], range_x=[20,'Day0']))
+    return figure
 
