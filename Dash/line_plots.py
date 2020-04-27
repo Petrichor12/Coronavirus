@@ -26,12 +26,18 @@ df_deaths = df_deaths.set_index('Unnamed: 0')
 df_deaths.index.names = ['Date']
 df_deaths['Total'] = df_deaths.sum(axis=1)
 
-
-#Read in cases dataset
+#Read in daily cases dataset
 df_daily_cases = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/Stats/Daily%20cases.csv?token=AGBFZQPHGGSA262CIYF2IIK6UVVYM')
 df_daily_cases = df_daily_cases.set_index('Unnamed: 0')
 df_daily_cases.index.names = ['Date']
 df_daily_cases['Total'] = df_daily_cases.sum(axis=1)
+
+#Read in daily deaths dataset
+df_daily_deaths = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/Stats/Daily%20deaths.csv')
+df_daily_deaths = df_daily_deaths.set_index('Unnamed: 0')
+df_daily_deaths.index.names = ['Date']
+df_daily_deaths['Total'] = df_daily_deaths.sum(axis=1)
+
 
 countries = []
 for i in df_cases.columns.values:
@@ -58,7 +64,8 @@ page_line = html.Div(children=[
     dcc.Tabs(id='tabs_line',value='Total cases',children=[
         dcc.Tab(label='Total cases',value='Total cases'),
         dcc.Tab(label='Total deaths',value='Total deaths'),
-        dcc.Tab(label='Daily cases',value='Daily cases')
+        dcc.Tab(label='Daily cases',value='Daily cases'),
+        dcc.Tab(label='Daily deaths',value='Daily deaths')
     ]),
 
     dbc.Card(
@@ -80,6 +87,9 @@ def update_graph_brasil(country, tab):
         y = df_deaths.loc[:,country].to_numpy()
     elif tab == 'Daily cases':
         y = df_daily_cases.loc[:,country].to_numpy()
+    elif tab == 'Daily deaths':
+        y = df_daily_deaths.loc[:,country].to_numpy()
+        
     figure = {
         'data': [
             {'x': x, 'y': y, 'type': 'line'},
