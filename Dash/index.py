@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 from line_plots import page_line,card_line,menu_line
 from scatter_plots import page_scatter
-from cidades import page_cidades,card_cidades,menu_cidades
+from area_plots import page_area
 from mapa import map_layout
 from app import app
 
@@ -53,8 +53,7 @@ graph_layout = html.Div([
                     html.H2('Area graphs'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_cidades)],md=8),
-                        dbc.Col([html.Div(menu_cidades),html.Br(),html.Div(card_cidades)])
+                        dbc.Col([html.Div(page_area)],md=12)
                     ])
                 ])    
             ])

@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 from dash.dependencies import Input, Output
 from app import app
+from style_functions import generate_radio_button
 
 #Read in dataset
 df = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/world_info.csv')
@@ -24,17 +25,13 @@ page_scatter =  html.Div(children=[
         dcc.Graph(id='graph_states'),
                               
         html.Div([     
-            dcc.RadioItems(
-                    id='axis-type',
-                    options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-                    value='Log',
-                    labelStyle={'display': 'inline-block',
-                                'padding': 5}
-                )
+            generate_radio_button(['Log', 'Linear'],'axis-type')
             ],
-            style={'text-align': 'center', 'display':'inline-block'})
-        ])
-    ])
+            style={'text-align': 'center', 'display':'inline-block'}
+        )
+    ],
+    style={'border':'0px', 'box-shadow': 'none'})
+])
 
 @app.callback(
     Output('graph_states','figure'),

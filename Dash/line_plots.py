@@ -26,7 +26,7 @@ df_deaths = df_deaths.set_index('Unnamed: 0')
 df_deaths.index.names = ['Date']
 df_deaths['Total'] = df_deaths.sum(axis=1)
 
-#Read in cases dataset
+#Read in daily cases dataset
 df_daily_cases = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/Stats/Daily cases.csv')
 df_daily_cases = df_daily_cases.set_index('Unnamed: 0')
 df_daily_cases.index.names = ['Date']
@@ -36,7 +36,7 @@ countries = []
 for i in df_cases.columns.values:
     countries.append({'label':i,'value':i})
 
-#Add main card
+#Add card with written data
 card_line = dbc.Card(id='card_line') 
 
 #Add dropdown card
