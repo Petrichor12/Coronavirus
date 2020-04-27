@@ -7,7 +7,7 @@ from app import app
 from style_functions import generate_radio_button
 
 #Read in dataset
-df = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/world_info.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/world_info.csv?token=AGBFZQLLRLVU7NLPL42KDHC6UVVQG')
 
 df.columns = ['Unnamed','Country', 'Total Cases', 'New Cases', 'Total Deaths', 'New Deaths', 'Total Recovered', 
            'Active Cases', 'Critical cases', 'Cases per 1M', 'Deaths per 1M', 'Total Tests', 'Test per 1M']
