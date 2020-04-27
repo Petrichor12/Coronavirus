@@ -29,7 +29,7 @@ page_area = html.Div(children=[
 
 @app.callback(
     [Output('graph_area','figure')],
-    [Input('tabs_line','value')]
+    [Input('tabs_area','value')]
 )
 def update_graph_brasil(tab):
     x = df['Day0']
