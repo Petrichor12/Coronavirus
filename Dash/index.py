@@ -6,13 +6,18 @@ import dash_bootstrap_components as dbc
 from line_plots import page_line,card_line,menu_line
 from scatter_plots import page_scatter
 from area_plots import page_area
+from new_cases_cases import page_new_cases
+from CFR_lines import page_CFR_lines
+from animations import page_animation
 from mapa import map_layout
 from app import app
 
 
 links = dbc.Row(children=[
             dbc.Col(dbc.NavLink('Maps', href='/',style={'color':'#fff'})),
-            dbc.Col(dbc.NavLink('Graphs', href='/graphs',style={'color':'#fff'})),
+            dbc.Col(dbc.NavLink('Basic Graphs', href='/basic-graphs',style={'color':'#fff'})),
+            dbc.Col(dbc.NavLink('Advanced Graphs', href='/advanced-graphs',style={'color':'#fff'})),
+            dbc.Col(dbc.NavLink('Animations', href='/animations',style={'color':'#fff'})),
 ],)
 
 navbar = dbc.Navbar(children=[
@@ -58,7 +63,45 @@ graph_layout = html.Div([
                 ])    
             ])
         ])    
-  ])  
+  ])
+
+adv_graph_layout = html.Div([
+        html.Div([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H2('Non chronographic plots'),
+                    html.Br(),
+                    dbc.Row([
+                        dbc.Col([html.Div(page_new_cases)],md=12)
+                    ]),
+                    html.Br(),
+                    dbc.Row([
+                        dbc.Col([html.Div(page_CFR_lines)],md=12)
+                    ]),
+                ])    
+            ])
+        ]),
+        html.Br(),
+   
+  ])    
+
+animation_layout = html.Div([
+        html.Div([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H2('Scatter plot animations'),
+                    html.Br(),
+                    dbc.Row([
+                        dbc.Col([html.Div(page_animation)],md=12)
+                    ]),
+                    html.Br(),
+                    
+                ])    
+            ])
+        ]),
+        html.Br(),
+   
+  ])    
 
 footer = dbc.Row([
     dbc.Col(
@@ -73,7 +116,8 @@ footer = dbc.Row([
             ''')],
         width={'offset':1},
         )
-])        
+])      
+    
 #Layout
 app.layout = html.Div(children=[
     dcc.Location(id='url'),
@@ -93,8 +137,12 @@ app.layout = html.Div(children=[
 def update_content(url):
     if url == '/':
         return map_layout
-    elif url == '/graphs':
+    elif url == '/basic-graphs':
         return graph_layout
+    elif url == '/advanced-graphs':
+        return adv_graph_layout
+    elif url == '/animation':
+        return animation_layout
 
 # add callback for toggling the collapse on small screens
 @app.callback(

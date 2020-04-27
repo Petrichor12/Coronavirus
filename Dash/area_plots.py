@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output
 from app import app       
 
 #Read in cases dataset
-df = pd.read_csv('C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Data/timeseries.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/timeseries.csv')
 
 #Add graph card with tabs
 page_area = html.Div(children=[
@@ -45,6 +45,7 @@ def update_graph_brasil(tab):
         title = tab +' by country over time',
         xaxis_title='Days since 1st Jan 2020',
         yaxis_title=tab,
+        hovermode='closest'
         )
 
     return figure
