@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 from line_plots import page_line,card_line,menu_line
-from scatter_plots import page_scatter
+from scatter_plots_slider import page_scatter_slider
 from area_plots import page_area
 from new_cases_cases import page_new_cases
 from CFR_lines import page_CFR_lines
@@ -46,7 +46,7 @@ graph_layout = html.Div([
                     html.H2('Scatter plots'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_scatter)],md=12)
+                        dbc.Col([html.Div(page_scatter_slider)],md=12)
                     ]),
                 ])    
             ])
