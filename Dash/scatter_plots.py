@@ -20,15 +20,16 @@ df.drop(df.head(1).index,inplace=True)        #removes total row
 
 #Layout    
 page_scatter =  html.Div(children=[
-
-    dbc.Card([
-        dcc.Graph(id='graph_states'),
-                              
-        html.Div([     
+    
+    html.Div([     
             generate_radio_button(['Log', 'Linear'],'axis-type')
             ],
             style={'text-align': 'center', 'display':'inline-block'}
-        )
+        ),
+
+    dbc.Card([
+        dcc.Graph(id='graph_states')
+
     ],
     style={'border':'0px', 'box-shadow': 'none'})
 ])

@@ -45,7 +45,8 @@ def update_graph_brasil(tab):
         title = tab +' by country over time',
         xaxis_title='Days since 1st Jan 2020',
         yaxis_title=tab,
-        hovermode='closest'
+        hovermode='closest',
+        height=600
         )
 
     return figure
