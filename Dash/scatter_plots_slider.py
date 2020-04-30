@@ -14,7 +14,7 @@ mcases = df['Cases'].max()
 mdeaths = df['Deaths'].max()
 mdays = df['Day0'].max()
 
-days_slider = list(range(20, mdays, 10))
+days_slider = list(range(20, mdays, 5))
 days_slider.sort()
 
 min_days = days_slider[0]
@@ -32,14 +32,20 @@ page_scatter_slider = html.Div(children=[
     dbc.Card([
         dcc.Graph(id='graph_states_slider'),
 
+        html.Br(),
+
         dcc.Slider(
             id='day-slider',
             min=min_days,
             max=max_days,
-            value=100,
+            value=115,
             marks={str(date): str(date) for date in days_slider},
             step=None
-        )
+        ),
+
+        html.Div([
+            html.H6('Days since 20th Jan 2020 (Outbreak begins)')
+        ])
     ],
         style={'border': '0px', 'box-shadow': 'none'})
 ])
@@ -62,7 +68,8 @@ def update_graph_state(axis, days):
                 'size': 15,
                 'opacity': 0.7,
                 'line': {'width': 0.7, 'color': 'white'}
-            }
+            },
+            text=filtered_df['Country']
         )],
         'layout': dict(
             xaxis={
@@ -78,6 +85,11 @@ def update_graph_state(axis, days):
             margin={'l': 70, 'b': 40, 't': 50, 'r': 30},
             hoverlabel=dict(
                 font_size=16
-            )
+            ),
+            transition={
+                'duration': 500,
+                'easing' : 'cubic-in-out',
+                'ordering' : 'traces first'
+            }
         )
     }
