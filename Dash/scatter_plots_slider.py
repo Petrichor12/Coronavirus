@@ -14,7 +14,7 @@ mcases = df['Cases'].max()
 mdeaths = df['Deaths'].max()
 mdays = df['Day0'].max()
 
-days_slider = list(range(0, mdays, 10))
+days_slider = list(range(20, mdays, 10))
 days_slider.sort()
 
 min_days = days_slider[0]
