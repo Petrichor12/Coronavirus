@@ -15,7 +15,7 @@ def generate_radio_button(list, id):
     )
 
 def generate_slider(days, id):
-    days_slider = list(range(20, max(days), 5))
+    days_slider = list(range(20, days.max(), 5))
     days_slider.sort()
     min_days = days_slider[0]
     max_days = days_slider[len(days_slider) - 1]

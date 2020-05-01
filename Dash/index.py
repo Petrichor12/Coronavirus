@@ -8,7 +8,7 @@ from scatter_plots_slider import page_scatter_slider
 from area_plots import page_area
 from new_cases_cases import page_new_cases
 from CFR_lines import page_CFR_lines
-from animations import page_animation
+from animations import page_modelling
 from mapa import map_layout
 from app import app
 
@@ -17,7 +17,7 @@ links = dbc.Row(children=[
             dbc.Col(dbc.NavLink('Maps', href='/',style={'color':'#fff'})),
             dbc.Col(dbc.NavLink('Basic Graphs', href='/basic-graphs',style={'color':'#fff'})),
             dbc.Col(dbc.NavLink('Advanced Graphs', href='/advanced-graphs',style={'color':'#fff'})),
-            dbc.Col(dbc.NavLink('Animations', href='/animations',style={'color':'#fff'})),
+            dbc.Col(dbc.NavLink('Pandemic Modelling', href='/modelling',style={'color':'#fff'})),
 ],)
 
 navbar = dbc.Navbar(children=[
@@ -69,7 +69,7 @@ adv_graph_layout = html.Div([
         html.Div([
             dbc.Card([
                 dbc.CardBody([
-                    html.H2('Non chronographic plots'),
+                    html.H2('Other plots'),
                     html.Br(),
                     dbc.Row([
                         dbc.Col([html.Div(page_new_cases)],md=12)
@@ -85,14 +85,14 @@ adv_graph_layout = html.Div([
    
   ])    
 
-animation_layout = html.Div([
+modelling_layout = html.Div([
         html.Div([
             dbc.Card([
                 dbc.CardBody([
-                    html.H2('Scatter plot animations'),
+                    html.H2('Kermack-McKendrick Model'),
                     html.Br(),
                     dbc.Row([
-                        dbc.Col([html.Div(page_animation)],md=12)
+                        dbc.Col([html.Div(page_modelling)],md=12)
                     ]),
                     html.Br(),
                     
@@ -141,8 +141,8 @@ def update_content(url):
         return graph_layout
     elif url == '/advanced-graphs':
         return adv_graph_layout
-    elif url == '/animation':
-        return animation_layout
+    elif url == '/modelling':
+        return modelling_layout
 
 # add callback for toggling the collapse on small screens
 @app.callback(
