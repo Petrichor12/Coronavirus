@@ -45,7 +45,7 @@ page_scatter_slider = html.Div(children=[
 
         html.Div([
             html.H6('Days since 20th Jan 2020 (Outbreak begins)')
-        ])
+        ], style={'text-align': 'center'})
     ],
         style={'border': '0px', 'box-shadow': 'none'})
 ])
