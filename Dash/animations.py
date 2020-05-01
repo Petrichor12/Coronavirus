@@ -6,30 +6,116 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-from dash.dependencies import Input, Output
-from app import app      
+from dash.dependencies import Input, Output, State
+from app import app
+from modsim import *
 
-#Read in dataset
-df = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/timeseries.csv')
-mcases = df['Cases'].max()
-mdeaths = df['Deaths'].max()
-mnewcases = df['New Cases'].max()
 
-countries = ['USA', 'China', 'S', 'Norway', 'Germany', 'Italy', 'Australia', 'Turkey']
- 
-#Create graph
-fig = px.scatter(df[df['Country'].isin(countries)], x="Cases", y="Deaths", animation_frame="Day0",
-           size="Daily Deaths", color="Country", hover_name="Country",animation_group="Country",text="Country",
-                 range_x=[0,mcases], range_y=[0,mdeaths])
-fig.update_layout(title='Evolution of Deaths and Cases by Country over Time')
+def make_system(beta, gamma, duration=2 * 365, S=7000000000, I=500000, R=123000):
+    """Make a system object for the SIR model.
 
-#Layout    
-page_animation =  html.Div(children=[
+    beta: contact rate in days
+    gamma: recovery rate in days
+
+    returns: System object
+    """
+    init = State(S=S, I=I, R=R)
+    init /= sum(init)
+
+    t0 = 0
+    t_end = duration
+
+    return System(init=init, t0=t0, t_end=t_end,
+                  beta=beta, gamma=gamma)
+
+
+def update_func(state, t, system):
+    """Update the SIR model.
+
+    state: State with variables S, I, R
+    t: time step
+    system: System with beta and gamma
+
+    returns: State object
+    """
+    s, i, r = state
+
+    infected = system.beta * i * s
+    recovered = system.gamma * i
+
+    s -= infected * t
+    i += (infected - recovered) * t
+    r += recovered * t
+
+    return State(S=s, I=i, R=r)
+
+
+def run_simulation(system, update_func):
+    """Runs a simulation of the system.
+
+    system: System object
+    update_func: function that updates state
+
+    returns: TimeFrame
+    """
+    frame = TimeFrame(columns=system.init.index)
+    frame.row[system.t0] = system.init
+
+    for t in linrange(system.t0, system.t_end):
+        frame.row[t + 1] = update_func(frame.row[t], t, system)
+
+    return frame
+
+#Layout
+page_modelling =  html.Div(children=[
+
+    html.Div([
+        html.P('Time between contacts (days)'),
+        dcc.Input(id='tc-state', type='number', value=7),
+        html.P('Recovery time (days)'),
+        dcc.Input(id='tr-state', type='number', value=20),
+        html.P('Duration (days)'),
+        dcc.Input(id='duration-state', type='number', value=30),
+        html.P(' Population'),
+        dcc.Input(id='pop-state', type='number', value=7e5),
+        html.P(' Infected at day = 0'),
+        dcc.Input(id='inf-state', type='number', value=1e5),
+        html.P(' Recovered at day = 0'),
+        dcc.Input(id='rec-state', type='number', value=1e4),
+        html.P('Death rate'),
+        dcc.Input(id='death-state', type='number', value=0.05)
+    ]),
 
     dbc.Card([
-        dcc.Graph(id='scatter_animation', figure=fig)
-    ],
-    style={'border':'0px', 'box-shadow': 'none'})
+        dcc.Graph(id='model')
+    ])
 ])
 
+@app.callback(Output('model', 'figure'),
+              [Input('tc-state', 'value'),
+               Input('tr-state', 'value'),
+               Input('duration-state', 'value'),
+               Input('pop-state', 'value'),
+               Input('inf-state', 'value'),
+               Input('rec-state', 'value'),
+               Input('death-state', 'value')])
+def update_output(tc, tr, duration, pop, inf, rec, death_rate):
+
+    tc = tc  # time between contacts in days
+    tr = tr  # recovery time in days
+
+    beta = 1 / tc  # contact rate in per day
+    gamma = 1 / tr  # recovery rate in per day
+
+    system = make_system(beta, gamma, duration, pop, inf, rec)
+    results = run_simulation(system, update_func)
+
+    results.reset_index(inplace=True)
+    results['Deaths'] = death_rate * results['I']
+    df = results.melt(id_vars='index')
+
+    fig = px.line(df, x="index", y="value", color="variable", line_group="variable", hover_name="variable",
+                  line_shape="spline", render_mode="svg")
+
+    return fig
 

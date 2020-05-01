@@ -46,8 +46,12 @@ def update_graph_brasil(tab):
         xaxis_title='Days since 1st Jan 2020',
         yaxis_title=tab,
         hovermode='closest',
-        height=600
+        height=600,
+        paper_bgcolor='rgba(255,255,255)',
+        plot_bgcolor='rgba(255,255,255,0)'
         )
+    figure.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black', mirror=False)
+    figure.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=False, linewidth=2, linecolor='grey', mirror=False)
 
     return figure
 

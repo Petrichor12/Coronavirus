@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 from dash.dependencies import Input, Output
 from app import app
-from style_functions import generate_radio_button
+from style_functions import generate_radio_button, generate_slider
 
 # Read in dataset
 df = pd.read_csv('https://raw.githubusercontent.com/Petrichor12/Coronavirus/master/Data/timeseries.csv')
@@ -34,14 +34,7 @@ page_scatter_slider = html.Div(children=[
 
         html.Br(),
 
-        dcc.Slider(
-            id='day-slider',
-            min=min_days,
-            max=max_days,
-            value=115,
-            marks={str(date): str(date) for date in days_slider},
-            step=None
-        ),
+        generate_slider(df['Day0'], 'day-slider'),
 
         html.Div([
             html.H6('Days since 20th Jan 2020 (Outbreak begins)')
