@@ -9,7 +9,7 @@ from area_plots import page_area
 from new_cases_cases import page_new_cases
 from CFR_lines import page_CFR_lines
 from modelling import page_modelling, page_sliders_modelling, page_modelling_description, page_modelling_equations
-from bubble_maps import bubble_map_layout
+from bubble_maps import page_map, menu_map, map_type
 from app import app
 
 
@@ -27,6 +27,19 @@ navbar = dbc.Navbar(children=[
     dbc.NavbarToggler(id="navbar-toggler"),
     dbc.Collapse(links, id="navbar-collapse", navbar=True),
 ], color="dark", dark = True, className='col-md-12')
+
+map_layout = html.Div([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H2('Maps'),
+                    html.Br(),
+                    dbc.Row([
+                        dbc.Col([html.Div(page_map)],md=8),
+                        dbc.Col([html.Div(menu_map),html.Br(),html.Div(map_type)])
+                    ]),
+                ])
+        ])
+    ])
 
 graph_layout = html.Div([
             dbc.Card([
@@ -116,7 +129,7 @@ footer = dbc.Row([
         ),
     dbc.Col(
         [dcc.Markdown('''    
-            Produced by the Vat Boys
+            Github: https://github.com/Petrichor12/Coronavirus 
             ''')],
         width={'offset':1},
         )
@@ -140,7 +153,7 @@ app.layout = html.Div(children=[
 )
 def update_content(url):
     if url == '/':
-        return bubble_map_layout
+        return map_layout
     elif url == '/basic-graphs':
         return graph_layout
     elif url == '/advanced-graphs':
