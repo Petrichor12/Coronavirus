@@ -65,7 +65,7 @@ page_map = html.Div(children=[
 
         html.Div([
             html.H6('Days since 1st Jan 2020')
-        ], style={'text-align': 'center'})
+        ], style={'text-align': 'center','padding':'10px'})
     ])
 
 
