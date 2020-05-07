@@ -72,7 +72,8 @@ page_modelling =  html.Div(children=[
 
     dbc.Card([
         dcc.Graph(id='model')
-    ])
+    ],
+    style={'border': '0px', 'box-shadow': 'none'})
 ])
 
 page_modelling_description = html.Div([
@@ -82,12 +83,15 @@ page_modelling_description = html.Div([
            ' that has been made into more complex versions to suit individual pandemics. The model is based on '
            'three coupled non-linear ordinary differential equations for the change in people that are susceptible,'
            ' infected or removed (dead or recovered) over time:'),
-    html.Br(),
-    html.Img(src=""),
+    html.Img(src="https://github.com/Petrichor12/Coronavirus/blob/master/Dash/pics/eq1.PNG?raw=true",
+             height=150, width = 230),
     html.Br(),
     html.P('Where δ(a) is a Dirac delta-function and the infection pressure λ(a) equals'),
+    html.Img(src = 'https://github.com/Petrichor12/Coronavirus/blob/master/Dash/pics/eq2.PNG?raw=true',
+             height=50, width = 200),
     html.Br(),
-    html.Img(src = 'C:/Users/Jason Collis/Documents/Python Scripts/Coronavirus/Dash/pics/eq2.PNG')
+    html.P('More information can be found here: https://doi.org/10.1016/j.mbs.2005.07.006'),
+    html.A(href='https://doi.org/10.1016/j.mbs.2005.07.006', title='Click')
 ])
 
 page_modelling_equations =  html.Div([
@@ -140,7 +144,7 @@ def update_output(tc, tr, pop, inf, rec, death_rate):
     fig.update_layout(
                       paper_bgcolor='rgba(255,255,255)',
                       plot_bgcolor='rgba(255,255,255,0)',
-                      height=600
+                      height=500
                       )
     fig.update_xaxes(title='Time', showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black',
                      mirror=False)
