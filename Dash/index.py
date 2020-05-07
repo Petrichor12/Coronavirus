@@ -8,7 +8,7 @@ from scatter_plots_slider import page_scatter_slider
 from area_plots import page_area
 from new_cases_cases import page_new_cases
 from CFR_lines import page_CFR_lines
-from animations import page_modelling
+from animations import page_modelling, page_sliders_modelling, page_modelling_description, page_modelling_equations
 from mapa import map_layout
 from app import app
 
@@ -91,6 +91,10 @@ modelling_layout = html.Div([
                 dbc.CardBody([
                     html.H2('Kermack-McKendrick Model'),
                     html.Br(),
+                    dbc.Row([
+                        dbc.Col([html.Div(page_modelling_description)], md=6),
+                        dbc.Col([html.Div(page_sliders_modelling)])
+                    ]),
                     dbc.Row([
                         dbc.Col([html.Div(page_modelling)],md=12)
                     ]),

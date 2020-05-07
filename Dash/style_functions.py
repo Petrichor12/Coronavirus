@@ -14,17 +14,20 @@ def generate_radio_button(list, id):
                     }
     )
 
-def generate_slider(days, id):
-    days_slider = list(range(20, days.max(), 5))
-    days_slider.sort()
-    min_days = days_slider[0]
-    max_days = days_slider[len(days_slider) - 1]
+def generate_slider(min, max, steps, value, id):
+    days_slider = list(range(min, max+steps, steps))
 
     return dcc.Slider(
          id=id,
-         min = min_days,
-         max = max_days,
-         value = 115,
+         min = min,
+         max = max,
+         value = value,
          marks = {str(date): str(date) for date in days_slider},
          step = None
     )
+
+def generate_input(type, id, value):
+    return dcc.Input(
+                     id=id, type=type, value=value,
+                     style = {'border': '2px solid black'}
+                     )

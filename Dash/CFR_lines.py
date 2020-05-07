@@ -46,8 +46,8 @@ fig.update_layout(title="Deaths over Cases incl. Case Fatality Rate (CFR) Iso Li
                   paper_bgcolor='rgba(255,255,255)',
                   plot_bgcolor='rgba(255,255,255,0)'
                   )
-fig.update_xaxes(range=[1, 6], showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black', mirror=False)
-fig.update_yaxes(range=[0.4, 5], showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black', mirror=False)
+fig.update_xaxes(range=[1, 6.2], showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black', mirror=False)
+fig.update_yaxes(range=[0.4, 5.2], showgrid=True, gridwidth=1, gridcolor='lightgrey', showline=True, linewidth=2, linecolor='black', mirror=False)
 
 #Layout    
 page_CFR_lines =  html.Div(children=[
@@ -57,5 +57,4 @@ page_CFR_lines =  html.Div(children=[
     ],
     style={'border':'0px', 'box-shadow': 'none'})
 ])
-
 

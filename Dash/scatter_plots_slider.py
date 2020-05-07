@@ -34,7 +34,7 @@ page_scatter_slider = html.Div(children=[
 
         html.Br(),
 
-        generate_slider(df['Day0'], 'day-slider'),
+        generate_slider(min_days, max_days, 5, max_days, 'day-slider'),
 
         html.Div([
             html.H6('Days since 20th Jan 2020 (Outbreak begins)')
