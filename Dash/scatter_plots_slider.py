@@ -57,7 +57,7 @@ def update_graph_state(axis, days):
             y=filtered_df['Deaths'],
             mode='markers',
             marker={
-                'size': 15,
+                'size': 14,
                 'opacity': 0.7,
                 'line': {'width': 1.5, 'color': 'black'}
             },
