@@ -38,7 +38,7 @@ page_scatter_slider = html.Div(children=[
 
         html.Div([
             html.H6('Days since 1st Jan 2020')
-        ], style={'text-align': 'center'})
+        ], style={'text-align': 'center', 'padding':'10px'})
     ],
         style={'border': '0px', 'box-shadow': 'none'})
 ])
@@ -59,7 +59,7 @@ def update_graph_state(axis, days):
             marker={
                 'size': 15,
                 'opacity': 0.7,
-                'line': {'width': 0.7, 'color': 'white'}
+                'line': {'width': 1.5, 'color': 'black'}
             },
             text=filtered_df['Country']
         )],

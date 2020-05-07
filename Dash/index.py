@@ -129,7 +129,7 @@ footer = dbc.Row([
         ),
     dbc.Col(
         [dcc.Markdown('''    
-            Github: https://github.com/Petrichor12/Coronavirus 
+            Github: https://github.com/Petrichor12/Coronavirus
             ''')],
         width={'offset':1},
         )
