@@ -37,12 +37,11 @@ page_scatter_slider = html.Div(children=[
         generate_slider(min_days, max_days, 5, max_days, 'day-slider'),
 
         html.Div([
-            html.H6('Days since 20th Jan 2020 (Outbreak begins)')
+            html.H6('Days since 1st Jan 2020')
         ], style={'text-align': 'center'})
     ],
         style={'border': '0px', 'box-shadow': 'none'})
 ])
-
 
 @app.callback(
     Output('graph_states_slider', 'figure'),
